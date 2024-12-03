@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\UserObserver;
 use Carbon\CarbonInterface;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,9 +26,11 @@ use Illuminate\Notifications\Notifiable;
  * @property null|CarbonInterface $created_at
  * @property null|CarbonInterface $updated_at
  * @property null|CarbonInterface $deleted_at
+ * @property Workspace $workspace
  *
  * @use HasFactory<UserFactory>
  */
+#[ObservedBy(UserObserver::class)]
 final class User extends Authenticatable
 {
     use HasFactory;
@@ -38,6 +43,9 @@ final class User extends Authenticatable
         'name',
         'email',
         'password',
+        'remember_token',
+        'workspace_id',
+        'email_verified_at',
     ];
 
     /** @var array<int,string> */
@@ -45,6 +53,15 @@ final class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /** @return BelongsTo<Workspace> */
+    public function workspace(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Workspace::class,
+            foreignKey: 'workspace_id',
+        );
+    }
 
     /** @return array<string,string> */
     protected function casts(): array
