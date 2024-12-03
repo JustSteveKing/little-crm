@@ -1,0 +1,10 @@
+parameters:
+    paths:
+        - app/
+        - config/
+        - routes/
+        - database/
+
+    level: 10
+
+    checkImplicitMixed: true
