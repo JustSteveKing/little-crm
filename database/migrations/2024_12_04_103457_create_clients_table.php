@@ -13,7 +13,7 @@ return new class () extends Migration {
             $table->ulid('id')->primary();
 
             $table->string('name')->comment('Laravel');
-            $table->string('website')->comment('https://laravel.com');
+            $table->string('website')->comment('https://laravel.com')->nullable();
 
             $table
                 ->foreignUlid('workspace_id')
