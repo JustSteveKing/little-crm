@@ -53,6 +53,9 @@ const submit = () => {
             autocomplete="off"
             required
           />
+          <template v-if="form.errors.email">
+            <p class="text-destructive">{{ form.errors.email }}</p>
+          </template>
         </div>
         <div class="grid gap-2">
           <Label for="password">Password</Label>
@@ -60,9 +63,13 @@ const submit = () => {
             id="password"
             type="password"
             placeholder="you-know-nothing-jon-snow"
+            v-model="form.password"
             autocomplete="off"
             required
           />
+          <template v-if="form.errors.password">
+            <p class="text-destructive">{{ form.errors.password }}</p>
+          </template>
           <Link
             :href="route('password.request')"
             class="ml-auto inline-block text-sm underline"
@@ -70,7 +77,12 @@ const submit = () => {
             Forgot your password?
           </Link>
         </div>
-        <Button type="submit" class="w-full">
+        <Button
+          type="submit"
+          class="w-full"
+          :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing"
+        >
           Sign in
         </Button>
       </form>
