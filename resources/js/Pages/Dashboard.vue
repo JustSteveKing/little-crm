@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head} from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+} from "@/Components/ui/breadcrumb";
+import { cn } from "@/lib/utils";
 </script>
 
 <template>
   <Head title="Dashboard"/>
 
   <AuthenticatedLayout>
-    <template #header>
-      <h2
-        class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
-      >
-        Dashboard
-      </h2>
+    <template #breadcrumb>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem class="hidden md:block">
+            <Link :href="route('dashboard')" :class="cn('transition-colors hover:text-foreground')">
+              Dashboard
+            </Link>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
     </template>
 
     <div class="py-12">

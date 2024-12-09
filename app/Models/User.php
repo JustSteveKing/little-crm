@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * @property string $id
@@ -61,6 +62,23 @@ final class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(
             related: Workspace::class,
             foreignKey: 'workspace_id',
+        );
+    }
+
+    public function initials(): string
+    {
+        $words = Str::of(
+            string: $this->name,
+        )->explode(
+            delimiter: ' ',
+        );
+
+        $initials = $words->map(
+            callback: fn (string $word): string => $word[0],
+        );
+
+        return $initials->join(
+            glue: '',
         );
     }
 

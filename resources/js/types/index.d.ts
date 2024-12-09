@@ -1,14 +1,25 @@
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at?: string;
-}
+export type Workspace = {
+  id: string
+  name: string
+};
+
+export type Email = {
+  address: string
+  verified: boolean
+};
+
+export type User = {
+  id: string
+  name: string
+  initials: string
+  email: Email
+  workspace: Workspace
+};
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
     auth: {
-        user: User;
+        user?: User;
     };
 };
