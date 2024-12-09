@@ -16,12 +16,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
+Route::group([], base_path(
+    path: 'routes/web/auth.php',
+));
 
-Route::middleware('auth')->group(function (): void {
+Route::middleware(['auth'])->group(static function (): void {
+    Route::middleware(['verified'])->group(static function (): void {
+        Route::get('dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+    });
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+

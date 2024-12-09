@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Observers\UserObserver;
 use Carbon\CarbonInterface;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,7 +32,7 @@ use Illuminate\Notifications\Notifiable;
  * @use HasFactory<UserFactory>
  */
 #[ObservedBy(UserObserver::class)]
-final class User extends Authenticatable
+final class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
     use HasUlids;

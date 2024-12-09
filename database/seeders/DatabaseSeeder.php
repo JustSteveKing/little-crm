@@ -15,6 +15,7 @@ final class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Steve McDougall',
             'email' => 'juststevemcd@gmail.com',
+            'email_verified_at' => null,
         ]);
     }
 }

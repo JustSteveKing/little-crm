@@ -28,10 +28,6 @@ const submit = () => {
   <GuestLayout>
     <Head title="Sign into your account" />
 
-    <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-      {{ status }}
-    </div>
-
     <div class="mx-auto grid w-[350px] gap-6">
       <div class="grid gap-2 left">
         <h1 class="text-3xl font-bold">
@@ -39,6 +35,9 @@ const submit = () => {
         </h1>
         <p class="text-balance text-muted-foreground">
           Enter your email and password below to sign into your account.
+        </p>
+        <p v-if="status" class="mb-4 text-sm font-medium text-green-600">
+          {{ status }}
         </p>
       </div>
       <form @submit.prevent="submit" class="grid gap-4">

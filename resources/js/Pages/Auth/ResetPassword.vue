@@ -1,97 +1,97 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import {Head, useForm} from '@inertiajs/vue3';
+import {Input} from "@/Components/ui/input";
+import {Label} from "@/Components/ui/label";
+import {Button} from "@/Components/ui/button";
 
 const props = defineProps<{
-    email: string;
-    token: string;
+  email: string;
+  token: string;
 }>();
 
 const form = useForm({
-    token: props.token,
-    email: props.email,
-    password: '',
-    password_confirmation: '',
+  token: props.token,
+  email: props.email,
+  password: '',
+  password_confirmation: '',
 });
 
 const submit = () => {
-    form.post(route('password.store'), {
-        onFinish: () => {
-            form.reset('password', 'password_confirmation');
-        },
-    });
+  form.post(route('password.store'), {
+    onFinish: () => {
+      form.reset('password', 'password_confirmation');
+    },
+  });
 };
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Reset Password" />
+  <GuestLayout>
+    <Head title="Reset Password" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Reset Password
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
+    <div class="mx-auto grid w-[350px] gap-6">
+      <div class="grid gap-2 left">
+        <h1 class="text-3xl font-bold">
+          Reset Password
+        </h1>
+        <p class="text-balance text-muted-foreground">
+          Enter your email and password below to sign into your account.
+        </p>
+      </div>
+      <form @submit.prevent="submit" class="grid gap-4">
+        <div class="grid gap-2">
+          <Label for="email">Email Address</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="jon.snow@thewall.io"
+            v-model="form.email"
+            autofocus
+            autocomplete="off"
+            required
+          />
+          <template v-if="form.errors.email">
+            <p class="text-destructive">{{ form.errors.email }}</p>
+          </template>
+        </div>
+        <div class="grid gap-2">
+          <Label for="password">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            placeholder="you-know-nothing-jon-snow"
+            v-model="form.password"
+            autocomplete="off"
+            required
+          />
+          <template v-if="form.errors.password">
+            <p class="text-destructive">{{ form.errors.password }}</p>
+          </template>
+        </div>
+        <div class="grid gap-2">
+          <Label for="password_confirmation">Confirm Password</Label>
+          <Input
+            id="password_confirmation"
+            type="password"
+            placeholder="you-know-nothing-jon-snow"
+            v-model="form.password_confirmation"
+            autocomplete="off"
+            required
+          />
+          <template v-if="form.errors.password_confirmation">
+            <p class="text-destructive">{{ form.errors.password_confirmation }}</p>
+          </template>
+        </div>
+        <Button
+          type="submit"
+          class="w-full"
+          :class="{ 'opacity-25': form.processing }"
+          :disabled="form.processing"
+        >
+          Reset Password
+        </Button>
+      </form>
+    </div>
+  </GuestLayout>
 </template>
