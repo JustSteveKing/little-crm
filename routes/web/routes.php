@@ -6,8 +6,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Inertia\Response;
 
-Route::get('/', function () {
+Route::get('/', static function (): Response {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -22,7 +23,11 @@ Route::group([], base_path(
 
 Route::middleware(['auth'])->group(static function (): void {
     Route::middleware(['verified'])->group(static function (): void {
-        Route::get('dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+        Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+
+        Route::prefix('clients')->as('clients:')->group(base_path(
+            path: 'routes/web/clients.php',
+        ));
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

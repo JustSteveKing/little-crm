@@ -1,3 +1,16 @@
+export type Contact = {
+  id: string
+  name: string
+  email: string
+};
+
+export type Client = {
+  id: string
+  name: string
+  website?: string
+  contacts: Contact[]
+};
+
 export type Workspace = {
   id: string
   name: string

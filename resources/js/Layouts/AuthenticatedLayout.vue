@@ -3,11 +3,11 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@/components/ui/avatar'
+} from '@/Components/ui/avatar'
 
 import {
   Collapsible,
-} from '@/components/ui/collapsible'
+} from '@/Components/ui/collapsible'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,8 +16,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Separator } from '@/components/ui/separator'
+} from '@/Components/ui/dropdown-menu'
+import { Separator } from '@/Components/ui/separator'
 import {
   Sidebar,
   SidebarContent,
@@ -33,7 +33,7 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from '@/components/ui/sidebar'
+} from '@/Components/ui/sidebar'
 import {
   AudioWaveform,
   BadgeCheck,
@@ -92,8 +92,8 @@ const data = {
       isActive: false
     },
     {
-      title: 'Playground',
-      url: '#',
+      title: 'Clients',
+      url: route('clients:index'),
       icon: SquareTerminal,
       isActive: true,
     },
@@ -169,8 +169,10 @@ const user: User = usePage().props.auth.user;
               <SidebarMenuItem>
                 <SidebarMenuButton :tooltip="item.title">
                     <component :is="item.icon" />
-                    <span>{{ item.title }}</span>
-                    <ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    <Link :href="item.url" class="w-full flex">
+                      <span>{{ item.title }}</span>
+                      <ChevronRight class="ml-auto transition-transform duration-200" />
+                    </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </Collapsible>
