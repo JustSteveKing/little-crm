@@ -36,24 +36,25 @@ const props = defineProps<{
 
 <template>
   <AuthenticatedLayout>
+    <template #breadcrumb>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem class="hidden md:block">
+            <Link :href="route('dashboard')" class="transition-colors hover:text-foreground">
+              Dashboard
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem class="hidden md:block">
+            <Link :href="route('clients:index')" class="transition-colors hover:text-foreground">
+              Clients
+            </Link>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </template>
+
     <Drawer>
-      <template #breadcrumb>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem class="hidden md:block">
-              <Link :href="route('dashboard')" class="transition-colors hover:text-foreground">
-                Dashboard
-              </Link>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem class="hidden md:block">
-              <Link :href="route('clients:index')" class="transition-colors hover:text-foreground">
-                Clients
-              </Link>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </template>
 
       <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
