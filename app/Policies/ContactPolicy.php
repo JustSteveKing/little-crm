@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Contact;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
-class ContactPolicy
+final class ContactPolicy
 {
     /**
      * Determine whether the user can view any models.

@@ -74,7 +74,7 @@ final class User extends Authenticatable implements MustVerifyEmail
         );
 
         $initials = $words->map(
-            callback: fn (string $word): string => $word[0],
+            callback: fn(string $word): string => $word[0],
         );
 
         return $initials->join(

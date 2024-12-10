@@ -58,10 +58,7 @@ final class Project extends Model
         );
     }
 
-    public function state(): void
-    {
-        //
-    }
+    public function state(): void {}
 
     /** @return array<string,class-string|string> */
     protected function casts(): array
