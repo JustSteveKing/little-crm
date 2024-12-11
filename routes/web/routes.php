@@ -28,6 +28,10 @@ Route::middleware(['auth'])->group(static function (): void {
         Route::prefix('clients')->as('clients:')->group(base_path(
             path: 'routes/web/clients.php',
         ));
+
+        Route::prefix('projects')->as('projects:')->group(base_path(
+            path: 'routes/web/projects.php',
+        ));
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

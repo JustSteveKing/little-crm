@@ -1,3 +1,12 @@
+export type Project = {
+  id: string
+  name: string
+  status: string
+  details?: string
+  contact?: string
+  client: Client
+};
+
 export type Contact = {
   id: string
   name: string
@@ -34,5 +43,6 @@ export type PageProps<
 > = T & {
     auth: {
         user?: User;
+        projects?: Project[];
     };
 };

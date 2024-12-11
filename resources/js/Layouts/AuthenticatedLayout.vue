@@ -60,7 +60,7 @@ import {
 } from 'lucide-vue-next'
 import { Link, usePage } from "@inertiajs/vue3";
 import { ref } from 'vue'
-import {User} from "@/types";
+import {User, Project} from "@/types";
 
 // This is sample data.
 const data = {
@@ -98,8 +98,8 @@ const data = {
       isActive: true,
     },
     {
-      title: 'Models',
-      url: '#',
+      title: 'Projects',
+      url: route('projects:index'),
       icon: Bot,
     },
     {
@@ -135,6 +135,7 @@ const data = {
 const activeTeam = ref(data.teams[0])
 
 const user: User = usePage().props.auth.user;
+const projects: Project[] = usePage().props.auth.projects;
 </script>
 
 <template>
@@ -182,13 +183,12 @@ const user: User = usePage().props.auth.user;
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem
-              v-for="item in data.projects"
-              :key="item.name"
+              v-for="project in projects"
+              :key="project.id"
             >
               <SidebarMenuButton as-child>
-                <a :href="item.url">
-                  <component :is="item.icon" />
-                  <span>{{ item.name }}</span>
+                <a>
+                  <span>{{ project.name }}</span>
                 </a>
               </SidebarMenuButton>
               <DropdownMenu>
